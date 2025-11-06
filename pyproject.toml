@@ -3,4 +3,8 @@ name = "ejercicios-modulo-3"
 version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pytest>=8.4.2",
+    "rich>=14.2.0",
+    "ruff>=0.14.3",
+]

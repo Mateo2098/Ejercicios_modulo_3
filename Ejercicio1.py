@@ -1,3 +1,7 @@
+from rich.table import Table
+from rich.console import Console
+
+
 def calcular_imc(peso: float, altura: float) -> float:
     """
     Calcula el Índice de Masa Corporal (IMC).
@@ -9,7 +13,11 @@ def calcular_imc(peso: float, altura: float) -> float:
     Returns:
         float: Valor del IMC calculado.
     """
-    return peso / (altura**2)
+    if altura <= 0:
+        raise ValueError("La estatura debe ser mayor a 0")
+
+    imc = peso / (altura**2)
+    return imc
 
 
 def interpretar_imc(imc: float) -> str:
@@ -32,6 +40,31 @@ def interpretar_imc(imc: float) -> str:
         return (
             f"Su IMC es {round(imc, 2)}: no le llama la atension un gym o una cirugia?."
         )
+
+
+def tabla_resultado(peso: float, altura: float, imc: float) -> None:
+    """
+    Muestra los resultados
+
+    Args:
+        peso (float): Peso de la persona en kilogramos
+        estatura (float): Estatura de la persona en metros
+        imc (float): Valor del IMC calculado
+        categoria (str): Categoria del resultado
+    """
+
+    console = Console()
+
+    table = Table(title="Resultado del IMC")
+
+    table.add_column("Dato", style="bold cyan", justify="center")
+    table.add_column("valor", style="bold yellow", justify="center")
+
+    table.add_row("Peso (Kg)", f"{peso:.2f}")
+    table.add_row("Estatura (M)", f"{altura:.2f}")
+    table.add_row("IMC", f"{imc:.2f}")
+
+    console.print(table)
 
 
 def main():
